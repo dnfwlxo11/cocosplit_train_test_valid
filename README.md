@@ -16,14 +16,14 @@ pip install -r requirments
 
 
 ## How to use?
-$ python coco-split_train_test_valid.py \\
---annotations {annotationsFile, only Json} \\
---train_ratio {own train_ratio} \\
---valid_ratio {own valid_ratio} \\
---test_ratio {own test_ratio} \\
---trainJson_name {save fileName, Has a default} \\
---validJson_name {save fileName, Has a default} \\
---testJson_name {save fileName, Has a default}
+$ python coco-split_train_test_valid.py \\  
+--annotations {annotationsFile, only Json} \\  
+--train_ratio {own train_ratio} \\  
+--valid_ratio {own valid_ratio} \\  
+--test_ratio {own test_ratio} \\  
+--trainJson_name {save fileName, Has a default} \\  
+--validJson_name {save fileName, Has a default} \\  
+--testJson_name {save fileName, Has a default}  
 
 
 ## Option information
