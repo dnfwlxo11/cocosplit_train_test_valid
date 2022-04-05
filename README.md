@@ -6,7 +6,7 @@ https://github.com/akarazniewicz/cocosplit / akarazniewicz
 - In the existing code, just edit parser, save line and add ratio calculate code
 
 
-# coco-split_train_test_valid
+# cocosplit_train_test_valid
 If you want to separate the [train, test] sets, use the base code,
 and you want to separate the [train, valid, test] sets, use this code.
 
@@ -16,7 +16,7 @@ pip install -r requirments
 
 
 ## How to use?
-$ python coco-split_train_test_valid.py \\  
+$ python cocosplit_train_test_valid.py \\  
 --annotations {annotationsFile, only Json} \\  
 --train_ratio {own train_ratio} \\  
 --valid_ratio {own valid_ratio} \\  
@@ -27,4 +27,4 @@ $ python coco-split_train_test_valid.py \\
 
 
 ## Option information
-$ python coco-split_train_test_valid.py -h
+$ python cocosplit_train_test_valid.py -h
