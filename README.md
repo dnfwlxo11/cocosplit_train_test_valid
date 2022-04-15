@@ -40,7 +40,7 @@ python cocosplit_train_test_valid.py \\
 
 ## what is 'cocosplit_train_test_valid.py' and 'cocosplit_train_test_valid_fileVer.py'
 'cocosplit_train_test_valid.py' version is just split json file to train, test, valid file  
-'cocosplit_train_test_valid_fileVer.py' version is split json file and copy to json path
+'cocosplit_train_test_valid_fileVer.py' version is split json file and copy real files to json path
 
 ## Option information
 ```bash
