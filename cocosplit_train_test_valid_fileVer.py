@@ -17,6 +17,7 @@ parser.add_argument('--annotations', dest='annotations', action='store_true',
                     help='Ignore all images without annotations. Keep only these with at least one annotation')
 parser.add_argument('--save_path', type=str, default='.', help='main storing path')
 parser.add_argument('--image_path', type=str, default='.', help='images relative path')
+parser.add_argument('--os', type=str, default='linux', help='choose your operating system')
 
 args = parser.parse_args()
 
@@ -76,17 +77,21 @@ def main(args):
             if not os.path.exists(os.path.join(pp, 'images')):
                 os.mkdir(os.path.join(pp, 'images'))
         
+        copy_cmd = 'cp'
+        if args.os == 'window':
+            copy_cmd = 'copy'
+
         for train_image in x:
             fname = train_image['file_name']
-            os.system(f'copy "{os.path.join(args.image_path, fname)}" "{os.path.join(train_image_path, fname)}"')
+            os.system(f'{copy_cmd} "{os.path.join(args.image_path, fname)}" "{os.path.join(train_image_path, fname)}"')
         print(f'Complete {len(x)} train images')
         for valid_image in y:
             fname = valid_image['file_name']
-            os.system(f'copy "{os.path.join(args.image_path, fname)}" "{os.path.join(valid_image_path, fname)}"')
+            os.system(f'{copy_cmd} "{os.path.join(args.image_path, fname)}" "{os.path.join(valid_image_path, fname)}"')
         print(f'Complete {len(y)} test images')
         for test_image in z:
             fname = test_image['file_name']
-            os.system(f'copy "{os.path.join(args.image_path, fname)}" "{os.path.join(test_image_path, fname)}"')
+            os.system(f'{copy_cmd} "{os.path.join(args.image_path, fname)}" "{os.path.join(test_image_path, fname)}"')
         print(f'Complete {len(z)} valid images')
 
         save_coco(os.path.join(train_path,args.trainJson_name), info, licenses, x, filter_annotations(annotations, x), categories)
