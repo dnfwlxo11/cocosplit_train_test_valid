@@ -4,7 +4,7 @@ import argparse
 import funcy
 from sklearn.model_selection import train_test_split
 
-arser = argparse.ArgumentParser(description='Splits COCO annotations file into training and test sets.')
+parser = argparse.ArgumentParser(description='Splits COCO annotations file into training and test sets.')
 parser.add_argument('annotations', metavar='coco_annotations', type=str,
                     help='Path to COCO annotations file.')
 parser.add_argument('--train_ratio', type=float, dest='ratio_train', help='set train dataset ratio')
@@ -15,6 +15,8 @@ parser.add_argument('--validJson_name', type=str, default='valild.json', help='W
 parser.add_argument('--testJson_name', type=str, default='test.json', help='Where to store COCO test annotations')
 parser.add_argument('--annotations', dest='annotations', action='store_true',
                     help='Ignore all images without annotations. Keep only these with at least one annotation')
+parser.add_argument('--save_path', type=str, default='.', help='main storing path')
+parser.add_argument('--image_path', type=str, default='.', help='images relative path')
 
 args = parser.parse_args()
 
@@ -45,7 +47,7 @@ def main(args):
 
         images_with_annotations = funcy.lmap(lambda a: int(a['image_id']), annotations)
 
-        if args.having_annotations:
+        if args.annotations:
             images = funcy.lremove(lambda i: i['id'] not in images_with_annotations, images)
 
         # x: train, y: test z: valid
@@ -76,20 +78,20 @@ def main(args):
         
         for train_image in x:
             fname = train_image['file_name']
-            os.system(f'cp {os.path.join(args.image_path, fname)} {os.path.join(train_image_path, fname)}')
+            os.system(f'copy "{os.path.join(args.image_path, fname)}" "{os.path.join(train_image_path, fname)}"')
         print(f'Complete {len(x)} train images')
         for valid_image in y:
             fname = valid_image['file_name']
-            os.system(f'cp {os.path.join(args.image_path, fname)} {os.path.join(valid_image_path, fname)}')
+            os.system(f'copy "{os.path.join(args.image_path, fname)}" "{os.path.join(valid_image_path, fname)}"')
         print(f'Complete {len(y)} test images')
         for test_image in z:
             fname = test_image['file_name']
-            os.system(f'cp {os.path.join(args.image_path, fname)} {os.path.join(test_image_path, fname)}')
+            os.system(f'copy "{os.path.join(args.image_path, fname)}" "{os.path.join(test_image_path, fname)}"')
         print(f'Complete {len(z)} valid images')
 
-        save_coco(args.trainJson_name, info, licenses, x, filter_annotations(annotations, x), categories)
-        save_coco(args.testJson_name, info, licenses, y, filter_annotations(annotations, y), categories)
-        save_coco(args.validJson_name, info, licenses, z, filter_annotations(annotations, z), categories)
+        save_coco(os.path.join(train_path,args.trainJson_name), info, licenses, x, filter_annotations(annotations, x), categories)
+        save_coco(os.path.join(test_path,args.testJson_name), info, licenses, y, filter_annotations(annotations, y), categories)
+        save_coco(os.path.join(valid_path,args.validJson_name), info, licenses, z, filter_annotations(annotations, z), categories)
 
         print("Saved {} entries in {}, {} in {}, and {} in {}".format(len(x), train_path, len(y), test_path, len(z), valid_path))
 
