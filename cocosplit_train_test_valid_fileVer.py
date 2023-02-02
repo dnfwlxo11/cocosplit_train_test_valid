@@ -11,7 +11,7 @@ parser.add_argument('--train_ratio', type=float, dest='ratio_train', help='set t
 parser.add_argument('--valid_ratio', type=float,  dest='ratio_valid',help='set valid dataset ratio')
 parser.add_argument('--test_ratio', type=float,  dest='ratio_test',help='set test dataset ratio')
 parser.add_argument('--trainJson_name', type=str, default='train.json', help='Where to store COCO training annotations')
-parser.add_argument('--validJson_name', type=str, default='valild.json', help='Where to store COCO valid annotations')
+parser.add_argument('--validJson_name', type=str, default='valid.json', help='Where to store COCO valid annotations')
 parser.add_argument('--testJson_name', type=str, default='test.json', help='Where to store COCO test annotations')
 parser.add_argument('--annotations', dest='annotations', action='store_true',
                     help='Ignore all images without annotations. Keep only these with at least one annotation')
