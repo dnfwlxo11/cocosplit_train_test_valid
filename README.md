@@ -23,10 +23,7 @@ python cocosplit_train_test_valid.py \\
 --test_ratio {own test_ratio} \\  
 --trainJson_name {save fileName, Has a default} \\  
 --validJson_name {save fileName, Has a default} \\  
---testJson_name {save fileName, Has a default} \\  
---save_path {choose utput path, Has a default} \\  
---image_path {choose coco dataset image files path, Has a default} \\  
---os {choose your computer operating system, default linux}  
+--testJson_name {save fileName, Has a default}
 ```
 
 ## example
@@ -38,10 +35,7 @@ python cocosplit_train_test_valid.py \\
 --test_ratio 0.1 \\  
 --trainJson_name train.json \\  
 --validJson_name valid.json \\  
---testJson_name test.json \\  
---save_path /output \\  
---image_path ./cocoDataset/image \\  
---os window  
+--testJson_name test.json 
 ```
 
 ## what is 'cocosplit_train_test_valid.py' and 'cocosplit_train_test_valid_fileVer.py'
