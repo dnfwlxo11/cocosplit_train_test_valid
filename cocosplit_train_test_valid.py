@@ -21,10 +21,15 @@ ratio_train = args.ratio_train
 ratio_valid = args.ratio_valid
 ratio_test = args.ratio_test
 
-def save_coco(file, info, licenses, images, annotations, categories):
+def save_coco(file, images, annotations, categories):
     with open(file, 'wt', encoding='UTF-8') as coco:
-        json.dump({ 'info': info, 'licenses': licenses, 'images': images, 
-            'annotations': annotations, 'categories': categories}, coco, indent=2, sort_keys=True)
+        json.dump(
+            {
+                'images': images, 
+                'annotations': annotations, 
+                'categories': categories
+            }, coco, indent=2, sort_keys=True
+        )
 
 def filter_annotations(annotations, images):
     image_ids = funcy.lmap(lambda i: int(i['id']), images)
@@ -33,13 +38,9 @@ def filter_annotations(annotations, images):
 def main(args):
     with open(args.annotations, 'rt', encoding='UTF-8') as annotations:
         coco = json.load(annotations)
-        info = coco['info']
-        licenses = coco['licenses']
         images = coco['images']
         annotations = coco['annotations']
         categories = coco['categories']
-
-        number_of_images = len(images)
 
         images_with_annotations = funcy.lmap(lambda a: int(a['image_id']), annotations)
 
@@ -55,9 +56,9 @@ def main(args):
         train_after, valid = train_test_split(
             train_before, test_size=ratio_valid_adjusted)
 
-        save_coco(args.trainJson_name, info, licenses, train_after, filter_annotations(annotations, train_after), categories)
-        save_coco(args.testJson_name, info, licenses, test, filter_annotations(annotations, test), categories)
-        save_coco(args.validJson_name, info, licenses, valid, filter_annotations(annotations, valid), categories)
+        save_coco(args.trainJson_name, train_after, filter_annotations(annotations, train_after), categories)
+        save_coco(args.testJson_name, test, filter_annotations(annotations, test), categories)
+        save_coco(args.validJson_name, valid, filter_annotations(annotations, valid), categories)
 
         print("Saved {} entries in {} and {} in {} and {} in {}".format(len(train_after), args.trainJson_name, len(test), args.testJson_name, len(valid), args.validJson_name))
 
