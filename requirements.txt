@@ -1,4 +1,3 @@
-sklearn
 funcy
 argparse
 scikit-learn
